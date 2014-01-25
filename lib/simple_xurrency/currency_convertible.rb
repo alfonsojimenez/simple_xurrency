@@ -38,6 +38,8 @@ module CurrencyConvertible
 
       return 0.0 if self == 0 # Obviously
 
+      return self if @original == target # This is obviuos too, and xurrency gives an error if you try to convert usd => usd
+
       original = @original
 
       amount = self

@@ -41,11 +41,9 @@ describe "SimpleXurrency" do
     it "raises any error returned by the api call" do
       mock_xurrency_api('usd', 'xxx', 1, 1.5, Time.now.utc, :fail_with => "Currencies are not valid")
       mock_xurrency_api('usd', 'eur', 1_000_000_000, 1.5, Time.now.utc)
-      mock_xurrency_api('usd', 'usd', 1, 1.5, Time.now.utc, :fail_with => "Currency codes are the same")
 
       expect {1.usd.to_xxx}.to raise_error("Currencies are not valid")
       expect {1_000_000_000.usd.to_eur}.to_not raise_error
-      expect {1.usd.to_usd}.to raise_error("Currency codes are the same")
     end
 
     it "handles a negative value returning a negative as well" do
@@ -64,6 +62,12 @@ describe "SimpleXurrency" do
       mock_xurrency_api('usd', 'eur', 1, 1.5, '2010-10-04 00:00:00')
 
       1.usd.to_eur_updated_at.should == '2010-10-04 00:00:00'
+    end
+
+    it "return the same amout when converting to the same currency" do
+      mock_xurrency_api('usd', 'usd', 1, 1.5, Time.now.utc)
+
+      1.usd.to_usd.should == 1
     end
   end
 end

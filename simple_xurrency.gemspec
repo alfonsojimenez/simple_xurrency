@@ -43,7 +43,6 @@ Gem::Specification.new do |s|
   s.summary = %q{A really easy interface to the Xurrency API}
   s.test_files = [
     "spec/simple_xurrency_spec.rb",
-     "spec/test.rb",
      "spec/spec_helper.rb"
   ]
 
